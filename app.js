@@ -68,7 +68,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
+        //secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
