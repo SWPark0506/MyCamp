@@ -52,7 +52,7 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60, // 저장이나 업데이트 안 할때 불필요한 세션 재저장 방지
     crypto: {
-        secret
+        secret: secret
     }
 });
 
@@ -63,7 +63,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret,
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
