@@ -1,57 +1,57 @@
 <% layout('/layouts/boilerplate') %>
     <% layout('layouts/boilerplate')%>
         <div class="row">
-            <h1 class="text-center">New Campground</h1>
+            <h1 class="text-center">새 캠핑장</h1>
             <div class="col-md-6 offset-md-3">
                 <form action="/campgrounds" method="post" novalidate class="validated-form"
                     enctype="multipart/form-data">
                     <div class="mb-3">
-                        <label class="form-label" for="title">Title</label>
+                        <label class="form-label" for="title">제목</label>
                         <input class="form-control" type="text" id="title" name="campground[title]" required>
 
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a title.
+                            필수 항목입니다.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="location">Location</label>
+                        <label class="form-label" for="location">위치</label>
                         <input class="form-control" type="text" id="location" name="campground[location]" required>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a location.
+                            필수 항목입니다.
                         </div>
                     </div>
 
 
                     <div class="mb-3">
-                        <label class="form-label" for="price">Campground Price</label>
+                        <label class="form-label" for="price">가격(1박)</label>
                         <div class="input-group ">
-                            <span class="input-group-text" id="price-label">$</span>
+                            <span class="input-group-text" id="price-label">&#92;</span>
                             <input type="text" class="form-control" id="price" name="campground[price]"
                                 placeholder="0.00" aria-label="price" aria-describedby="price-label" required>
                             <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                Please provide a price.
+                                필수 항목입니다.
                             </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="description">Description</label>
+                        <label class="form-label" for="description">소개글</label>
                         <textarea class="form-control" type="text" id="description" name="campground[description]"
                             required></textarea>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a Description.
+                            필수 항목입니다.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="image" class="form-label">Image File(s)</label>
+                        <label for="image" class="form-label">사진 첨부</label>
                         <input class="form-control" type="file" id="image" name="image" multiple required>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a Image File(s).
+                            필수 항목입니다.
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button class="btn btn-success ">Add Campgrounds</button>
-                        <a href="/campgrounds" class="btn btn-danger">Cancel</a>
+                        <button class="btn btn-success ">캠핑장 만들기</button>
+                        <a href="/campgrounds" class="btn btn-danger">취소</a>
                     </div>
                 </form>
 

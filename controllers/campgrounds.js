@@ -21,7 +21,7 @@ module.exports.showCampground = async (req, res, next) => {
         }
     }).populate('author')
     if (!campground) {
-        req.flash('error', 'Cannot find that campground!')
+        req.flash('error', '해당 캠핑장을 찾을 수 없습니다!')
         return res.redirect('/campgrounds')
     }
     res.render('campgrounds/show', { campground });
@@ -38,9 +38,13 @@ module.exports.createCampground = async (req, res, next) => {
 
     campground.images = req.files.map(f => ({ url: f.path, filename: f.filename }))
     campground.author = req.user._id;
+
+    const date = new Date();
+    const dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+
+    campground.date = dateString;
     await campground.save();
-    console.log(campground);
-    req.flash('success', 'Successfully made a new campground!')
+    req.flash('success', '새로운 캠핑장을 성공적으로 만들었습니다!')
     res.redirect(`/campgrounds/${campground._id}`)
 }
 
@@ -48,7 +52,7 @@ module.exports.renderEditForm = async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if (!campground) {
-        req.flash('error', 'Cannot find that campground!')
+        req.flash('error', '해당 캠핑장을 찾을 수 없습니다!')
         return res.redirect('/campgrounds')
     }
 
@@ -65,11 +69,16 @@ module.exports.updateCampground = async (req, res, next) => {
         limit: 1
     }).send()
     campground.geometry = geoData.body.features[0].geometry;
+
+    const date = new Date();
+    const dateString = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+    campground.date = dateString;
+
     await campground.save()
     if (req.body.deleteImages) {
 
         if (req.body.deleteImages.length === campground.images.length) {
-            req.flash('error', 'campground needs at least 1 image!')
+            req.flash('error', '캠핑장은 적어도 1개의 이미지가 필요합니다!')
             res.redirect(`/campgrounds/${campground._id}/edit`)
 
         } else {
@@ -77,13 +86,13 @@ module.exports.updateCampground = async (req, res, next) => {
                 await cloudinary.uploader.destroy(filename);
             }
             await campground.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } })
-            req.flash('success', 'Successfully updated campground!')
+            req.flash('success', '캠핑장이 성공적으로 업데이트되었습니다!')
             res.redirect(`/campgrounds/${campground._id}`)
         }
 
     }
     else {
-        req.flash('success', 'Successfully updated campground!')
+        req.flash('success', '캠핑장이 성공적으로 업데이트되었습니다!')
         res.redirect(`/campgrounds/${campground._id}`)
     }
 
@@ -98,6 +107,6 @@ module.exports.deleteCampground = async (req, res, next) => {
         await cloudinary.uploader.destroy(img.filename);
     }
     await Campground.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted campground')
+    req.flash('success', '캠핑장이 성공적으로 삭제되었습니다')
     res.redirect('/campgrounds')
 } 

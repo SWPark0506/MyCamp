@@ -6,7 +6,7 @@ const Review = require('./models/review')
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl
-        req.flash('error', 'you must be signed in');
+        req.flash('error', '로그인해야 합니다');
         return res.redirect('/login');
     }
     next();
@@ -37,7 +37,7 @@ module.exports.isAuthor = async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
     if (!campground.author.equals(req.user._id)) {
-        req.flash('error', 'You do not have permission to do that!');
+        req.flash('error', '해당 작업을 수행할 권한이 없습니다!');
         return res.redirect(`/campgrounds/${id}`)
     }
     next();
@@ -47,7 +47,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
     if (!review.author.equals(req.user._id)) {
-        req.flash('error', 'You do not have permission to do that!');
+        req.flash('error', '해당 작업을 수행할 권한이 없습니다!');
         return res.redirect(`/campgrounds/${id}`)
     }
     next();

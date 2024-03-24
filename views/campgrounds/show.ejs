@@ -39,36 +39,36 @@
                         <%= campground.location %>
                     </li>
                     <li class="list-group-item ">
-                        <%="Submmited by " + campground.author.username %>
+                        <%="작성자: " + campground.author.username %>
                     </li>
                     <li class=" list-group-item">
-                            $<%= campground.price %>/night
+                            &#92;<%= campground.price %>/1박
                     </li>
 
                 </ul>
                 <% if(currentUser && campground.author.equals(currentUser._id)) { %>
                     <div class="card-body">
-                        <a href="/campgrounds/<%= campground._id%>/edit" class="card-link btn btn-info">Edit</a>
+                        <a href="/campgrounds/<%= campground._id%>/edit" class="card-link btn btn-info">수정</a>
                         <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="post">
-                            <button class="btn btn-danger">Delete</button>
+                            <button class="btn btn-danger">삭제</button>
                         </form>
                     </div>
                     <% } %>
                         <div class="card-footer text-muted">
-                            2 days ago
+                            마지막 수정일: <%= campground.date %>
                         </div>
             </div>
 
         </div>
 
         <div class="col-6">
-            <div id='map' class="mb-3"></div>
+            <div id='map' class="mb-5"></div>
 
             <% if(currentUser){ %>
-                <h2>Leave a Review</h2>
+                <h2>리뷰 남기기</h2>
                 <form class="mb-3 validated-form" action="/campgrounds/<%= campground._id %>/reviews" method="POST"
                     novalidate>
-                    <div class="mb-3">
+                    <div class="">
                         <fieldset class="starability-heartbeat">
                             <!-- <legend>First rating:</legend> -->
                             <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1"
@@ -86,22 +86,22 @@
                         </fieldset>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label" for="body">Review Text</label>
+                        <label class="form-label" for="body">리뷰 작성</label>
                         <textarea class="form-control" name="review[body]" id="body" cols="30" rows="5"
                             required></textarea>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a review.
+                            필수 항목입니다.
                         </div>
 
                     </div>
-                    <button class="btn btn-success md-3">Submit</button>
+                    <button class="btn btn-success md-3">제출</button>
                 </form>
                 <% } %>
                     <% for (let review of campground.reviews) {%>
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <%= review.author.username %>
+                                    작성자: <%= review.author.username %>
                                 </h5>
 
                                 <p class="starability-result" data-rating="<%= review.rating %>">
@@ -111,13 +111,13 @@
                                     By <%= review.author.username %>
                                 </h6> -->
                                 <p class="card-text">
-                                    Review: <%= review.body %>
+                                    리뷰: <%= review.body %>
                                 </p>
                                 <% if(currentUser && review.author.equals(currentUser._id)) { %>
                                     <form
                                         action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
                                         method="post">
-                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                        <button class="btn btn-sm btn-danger">삭제</button>
                                     </form>
                                     <% } %>
                             </div>

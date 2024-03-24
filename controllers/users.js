@@ -11,7 +11,7 @@ module.exports.register = async (req, res) => {
         const registerUser = await User.register(user, password);
         req.login(registerUser, err => {
             if (err) return next(err);
-            req.flash('success', 'Welcome to Yelp Camp!');
+            req.flash('success', 'MyCamp에 오신 것을 환영합니다!')
             res.redirect('/campgrounds');
         })
 
@@ -26,7 +26,7 @@ module.exports.renderLogin = (req, res) => {
     res.render('users/login')
 }
 module.exports.login = (req, res) => {
-    req.flash('success', 'Welcome Back!');
+    req.flash('success', '다시 오신 것을 환영합니다!')
     const redirectUrl = res.locals.returnTo || '/campgrounds';
     delete res.locals.returnTo;
     res.redirect(redirectUrl);
@@ -37,7 +37,7 @@ module.exports.logout = (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success', 'Good Bye!!');
+        req.flash('success', '안녕히 가세요!!')
         res.redirect('/campgrounds');
     })
 

@@ -22,9 +22,9 @@ const userRoutes = require('./routes/user')
 const campgroundsRoutes = require('./routes/campgrounds')
 const reviewsRoutes = require('./routes/reviews');
 const { log } = require('console');
-const dbUrl = 'mongodb+srv://our-first-user:OO1NL7zCLLz4uwP6@cluster0.2fx82bt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+const dbUrl = 'mongodb://localhost:27017/yelp-camp'
 // 'mongodb://localhost:27017/yelp-camp';
-
+//
 mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -52,7 +52,7 @@ const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60, // 저장이나 업데이트 안 할때 불필요한 세션 재저장 방지
     crypto: {
-        secret
+        secret: secret
     }
 });
 
@@ -63,12 +63,12 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret,
+    secret: secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
+        // secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }

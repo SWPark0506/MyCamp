@@ -4,52 +4,52 @@
 
     <div class="row">
         <h1 class="text-center">
-            Edit Campground
+            캠핑장 수정하기
         </h1>
         <div class="col-md-6 offset-md-3">
             <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post" novalidate
                 class="validated-form" enctype="multipart/form-data">
 
                 <div class="mb-3">
-                    <label class="form-label" for="title">Title</label>
+                    <label class="form-label" for="title">제목</label>
                     <input class="form-control" type="text" id="title" name="campground[title]"
                         value="<%=campground.title %>" required>
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Please provide a title.
+                        필수 항목입니다.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="location">Location</label>
+                    <label class="form-label" for="location">위치</label>
                     <input class="form-control" type="text" id="location" name="campground[location]"
                         value="<%= campground.location %>" required>
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Please provide a location.
+                        필수 항목입니다.
                     </div>
                 </div>
 
 
                 <div class="mb-3">
-                    <label class="form-label" for="price">Campground Price</label>
+                    <label class="form-label" for="price">가격(1박)</label>
                     <div class="input-group ">
-                        <span class="input-group-text" id="price-label">$</span>
+                        <span class="input-group-text" id="price-label">&#92;</span>
                         <input type="text" class="form-control" id="price" name="campground[price]" placeholder="0.00"
                             aria-label="price" aria-describedby="price-label" value="<%= campground.price %>" required>
                         <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                            Please provide a price.
+                            필수 항목입니다.
                         </div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label" for="description">Description</label>
+                    <label class="form-label" for="description">소개글</label>
                     <textarea class="form-control" type="text" id="description" name="campground[description]"
                         required><%= campground.description%></textarea>
                     <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                        Please provide a description.
+                        필수 항목입니다.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="image" class="form-label">Add more image(s)</label>
+                    <label for="image" class="form-label">이미지 추가하기</label>
                     <input class="form-control" type="file" id="image" name="image" multiple>
                 </div>
 
@@ -59,12 +59,12 @@
                         <div class="form-check-inline">
                             <input type="checkbox" id="image-<%=i %>" name="deleteImages[]" value="<%= img.filename %>">
                         </div>
-                        <label for="image-<%=i %>">Delete?</label>
+                        <label for="image-<%=i %>">삭제하기</label>
                         <% }) %>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-info text-white">Update Campgrounds</button>
-                    <a href="/campgrounds/<%=campground._id %>" class="btn btn-danger">Cancel</a>
+                    <button class="btn btn-info text-white">수정하기</button>
+                    <a href="/campgrounds/<%=campground._id %>" class="btn btn-danger">취소</a>
                 </div>
             </form>
 
