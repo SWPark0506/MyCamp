@@ -22,11 +22,7 @@ const userRoutes = require('./routes/user')
 const campgroundsRoutes = require('./routes/campgrounds')
 const reviewsRoutes = require('./routes/reviews');
 const { log } = require('console');
-<<<<<<< HEAD
-const dbUrl = 'mongodb://localhost:27017/yelp-camp'
-=======
 const dbUrl = process.env.DB_URL
->>>>>>> 4c3ffd4d3dd4bf3b9d43126781ba34a04733099c
 // 'mongodb://localhost:27017/yelp-camp';
 //
 mongoose.connect(dbUrl);
@@ -72,11 +68,7 @@ const sessionConfig = {
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-<<<<<<< HEAD
         // secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
-=======
-        //secure: true, //베포할 때 설정 -> 현재는 localhost이기 때문
->>>>>>> 4c3ffd4d3dd4bf3b9d43126781ba34a04733099c
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
