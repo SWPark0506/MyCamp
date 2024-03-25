@@ -6,11 +6,23 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken })
 
 module.exports.index = async (req, res, next) => {
     const campgrounds = await Campground.find({});
-    res.render('campgrounds/index', { campgrounds });
+    const toggle = false;
+    res.render('campgrounds/index', { campgrounds, toggle });
 }
 
 module.exports.renderNewForm = (req, res) => {
     res.render('campgrounds/new');
+}
+
+module.exports.searchCampground = async (req, res, next) => {
+    const title = req.body.search;
+    const regex = new RegExp(title, 'i'); // 'i' 옵션은 대소문자를 구분하지 않도록 합니다.
+    const toggle = true;
+
+    const campgrounds = await Campground.find({ title: regex });
+    res.render('campgrounds/index', { campgrounds, toggle, title })
+
+
 }
 
 module.exports.showCampground = async (req, res, next) => {
